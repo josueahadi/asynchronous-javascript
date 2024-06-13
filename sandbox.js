@@ -8,54 +8,63 @@
 // console.log(3)
 // console.log(4)
 
-const getTodos = (resource, callback) => {
-    const request = new XMLHttpRequest();
+const getTodos = (resource) => {
+    return new Promise((resolve, reject) => {
+        const request = new XMLHttpRequest();
 
-    request.addEventListener('readystatechange', () => {
-        // console.log(request, request.readyState);
-        if (request.readyState === 4 && request.status === 200) {
-            const data = JSON.parse(request.responseText)
-            callback(undefined, data);
-        } else if (request.readyState === 4) {
-            callback('could not fetch data', undefined);
-        }
+        request.addEventListener('readystatechange', () => {
+            // console.log(request, request.readyState);
+            if (request.readyState === 4 && request.status === 200) {
+                const data = JSON.parse(request.responseText)
+                resolve(data);
+            } else if (request.readyState === 4) {
+                reject('error getting resource');
+            }
+        });
+
+        request.open('GET', resource);
+        request.send();
     });
-
-    request.open('GET', resource);
-    request.send();
 };
 
-console.log(1);
-console.log(2);
-
-getTodos('todos/luigi.json', (err, data) => {
-    console.log('callback function fired');
-    if(err) {
-        console.log(err);
-    } else {
-        console.log(data);
-        getTodos('todos/mario.json', (err, data) => {
-            console.log(data);
-            getTodos('todos/shaun.json', (err, data) => {
-                console.log(data);
-            });
-        });
-    }
+getTodos('todos/luigi.json')
+.then(data => {
+    console.log('promise 1 resolved:', data);
+}).catch(err => {
+    console.log('promise 1 rejected:', err);
 });
 
-console.log(3);
-console.log(4);
+// console.log(1);
+// console.log(2);
+
+// getTodos('todos/luigi.json', (err, data) => {
+//     console.log('callback function fired');
+//     if(err) {
+//         console.log(err);
+//     } else {
+//         console.log(data);
+//         getTodos('todos/mario.json', (err, data) => {
+//             console.log(data);
+//             getTodos('todos/shaun.json', (err, data) => {
+//                 console.log(data);
+//             });
+//         });
+//     }
+// });
+
+// console.log(3);
+// console.log(4);
 
 
 // promise example
 
-const getSomething = () => {
-    return new Promise((resolve, reject) => {
-        // fetch something
-        resolve('some data');
-        reject('some error');
-    });
-};
+// const getSomething = () => {
+//     return new Promise((resolve, reject) => {
+//         // fetch something
+//         resolve('some data');
+//         reject('some error');
+//     });
+// };
 
 // do it this way
 
@@ -68,9 +77,9 @@ const getSomething = () => {
 // or this...
 // both methods work the same way but the second one is more readable as the top one can get a little messy 
 
-getSomething().then(data => {
-    console.log(data);
-}).catch(err => {
-    console.log(err)
-});
+// getSomething().then(data => {
+//     console.log(data);
+// }).catch(err => {
+//     console.log(err)
+// });
 
