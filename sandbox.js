@@ -45,3 +45,32 @@ getTodos('todos/luigi.json', (err, data) => {
 
 console.log(3);
 console.log(4);
+
+
+// promise example
+
+const getSomething = () => {
+    return new Promise((resolve, reject) => {
+        // fetch something
+        resolve('some data');
+        reject('some error');
+    });
+};
+
+// do it this way
+
+// getSomething().then((data)=> {
+//     console.log(data);
+// }, (err) => {
+//     console.log(err)
+// });
+
+// or this...
+// both methods work the same way but the second one is more readable as the top one can get a little messy 
+
+getSomething().then(data => {
+    console.log(data);
+}).catch(err => {
+    console.log(err)
+});
+
