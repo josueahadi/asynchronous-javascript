@@ -98,6 +98,7 @@ getTodos('todos/luigi.json')
 
 // Fetch API
 
+/*
 fetch('todos/luigi.json').then(response => {
     console.log('promise resolved', response)
     return response.json();
@@ -106,6 +107,15 @@ fetch('todos/luigi.json').then(response => {
 }).catch(err => {
     console.log('promise rejected', err)
 })
+*/
 
+// Async & Await 
+const getTodos = async () => {
+    const response = await fetch('todos/luigi.json')
+    const data = await response.json();
 
+    return data;
+};
 
+getTodos()
+    .then(data => console.log('resolved:', data));
