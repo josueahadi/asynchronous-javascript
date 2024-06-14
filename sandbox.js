@@ -8,6 +8,60 @@
 // console.log(3)
 // console.log(4)
 
+
+/*
+console.log(1);
+console.log(2);
+
+getTodos('todos/luigi.json', (err, data) => {
+    console.log('callback function fired');
+    if(err) {
+        console.log(err);
+    } else {
+        console.log(data);
+        getTodos('todos/mario.json', (err, data) => {
+            console.log(data);
+            getTodos('todos/shaun.json', (err, data) => {
+                console.log(data);
+            });
+        });
+    }
+});
+
+console.log(3);
+console.log(4);
+*/
+
+/*
+// promise example
+
+const getSomething = () => {
+    return new Promise((resolve, reject) => {
+        // fetch something
+        resolve('some data');
+        reject('some error');
+    });
+};
+
+// do it this way
+
+getSomething().then((data)=> {
+    console.log(data);
+}, (err) => {
+    console.log(err)
+});
+
+// or this...
+// both methods work the same way but the second one is more readable as the top one can get a little messy 
+
+getSomething().then(data => {
+    console.log(data);
+}).catch(err => {
+    console.log(err)
+});
+*/
+
+/*
 const getTodos = (resource) => {
     return new Promise((resolve, reject) => {
         const request = new XMLHttpRequest();
@@ -39,53 +93,19 @@ getTodos('todos/luigi.json')
 }).catch(err => {
     console.log('promise rejected:', err);
 });
-
-// console.log(1);
-// console.log(2);
-
-// getTodos('todos/luigi.json', (err, data) => {
-//     console.log('callback function fired');
-//     if(err) {
-//         console.log(err);
-//     } else {
-//         console.log(data);
-//         getTodos('todos/mario.json', (err, data) => {
-//             console.log(data);
-//             getTodos('todos/shaun.json', (err, data) => {
-//                 console.log(data);
-//             });
-//         });
-//     }
-// });
-
-// console.log(3);
-// console.log(4);
+*/
 
 
-// promise example
+// Fetch API
 
-// const getSomething = () => {
-//     return new Promise((resolve, reject) => {
-//         // fetch something
-//         resolve('some data');
-//         reject('some error');
-//     });
-// };
+fetch('todos/luigi.json').then(response => {
+    console.log('promise resolved', response)
+    return response.json();
+}).then(data => {
+    console.log(data);
+}).catch(err => {
+    console.log('promise rejected', err)
+})
 
-// do it this way
 
-// getSomething().then((data)=> {
-//     console.log(data);
-// }, (err) => {
-//     console.log(err)
-// });
-
-// or this...
-// both methods work the same way but the second one is more readable as the top one can get a little messy 
-
-// getSomething().then(data => {
-//     console.log(data);
-// }).catch(err => {
-//     console.log(err)
-// });
 
